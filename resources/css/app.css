@@ -1,0 +1,15 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body
+{
+    background: #c4b000;
+    margin-top: 100px;
+    font-family: 'Ropa Sans', sans-serif;
+}
+ 
+h1{
+    color:#fff;
+    font-weight:normal;
+}
