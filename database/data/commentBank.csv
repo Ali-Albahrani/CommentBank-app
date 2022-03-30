@@ -1,17 +1,17 @@
-comment_id,comment_name,author,email,valididated,effect
-IN01,"There is little or no introductory material and there has been a tendency to dive into the �meat� of the work without preparing the reader, by leading gradually into the subject-matter.",Alan Webb,jac.webb@ulster.ac.uk,1,1
-IN02,"The scope of the introductory material is inadequate and there is insufficient review of relevant background information which underpins the work being reported; There should be adequate referencing within the introduction to demonstrate relevant wider reading in the relevant areas, cognate with the topic.",Alan Webb,jac.webb@ulster.ac.uk,1,1
-IN03,One or more major areas of relevance has been overlooked completely or given only trivial coverage within the introductory material.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-IN04,Irrelevant or inappropriate material has been included in the introductory material.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-IN05,"The introductory material includes excessive coverage and/or detail in relation to aspects of background material, thereby taking up valuable reporting space required for later sections of the document (i.e. �too much book� and not enough evidence of original work).",Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE01,The method/methodology has not been justified through presentation of potential alternatives and resulting justification of the selected method on a balanced and well reasoned basis.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE02,The method/methodology is not well reported and there is insufficient detail and description; the reader should be able to follow the reasoning and development and there should be adequate explanation and illustration in relation to the approach adopted.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE03,Important assumptions have not been addressed/stated.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE04,Fundamental flaws in methodology have been noted.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE05,"Standard and well accepted approaches have not been adopted, without clear justification for avoiding these.",Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE06,"The presentation of mathematics has clear deficiencies e.g. errors are present; wrong symbols have been used, Greek letters are absent or incorrect, subscripts and/or superscripts are missing; equation layout is flawed.",Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE07,Important equations/expressions have not been properly numbered in sequence.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE08,Key steps are missing in the development of equations/expressions.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE09,Excessive detail has been included in the development of equations/expressions.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE10,Units or symbols are not consistent with appropriate conventions e.g. such as the SI system of units.,Alan Webb,jac.webb@ulster.ac.uk,1,1
-TE11,Abbreviations and/or acronyms do not follow normal conventions or have not been explicitly defined at the first mention.,Alan Webb,jac.webb@ulster.ac.uk,1,1
+type,comment_name,author,email,valididated,effect
+IN,"There is little or no introductory material and there has been a tendency to dive into the �meat� of the work without preparing the reader, by leading gradually into the subject-matter.",Alan Webb,jac.webb@ulster.ac.uk,1,positive
+IN,"The scope of the introductory material is inadequate and there is insufficient review of relevant background information which underpins the work being reported; There should be adequate referencing within the introduction to demonstrate relevant wider reading in the relevant areas, cognate with the topic.",Alan Webb,jac.webb@ulster.ac.uk,1,positive
+IN,One or more major areas of relevance has been overlooked completely or given only trivial coverage within the introductory material.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+IN,Irrelevant or inappropriate material has been included in the introductory material.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+IN,"The introductory material includes excessive coverage and/or detail in relation to aspects of background material, thereby taking up valuable reporting space required for later sections of the document (i.e. �too much book� and not enough evidence of original work).",Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,The method/methodology has not been justified through presentation of potential alternatives and resulting justification of the selected method on a balanced and well reasoned basis.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,The method/methodology is not well reported and there is insufficient detail and description; the reader should be able to follow the reasoning and development and there should be adequate explanation and illustration in relation to the approach adopted.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Important assumptions have not been addressed/stated.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Fundamental flaws in methodology have been noted.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,"Standard and well accepted approaches have not been adopted, without clear justification for avoiding these.",Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,"The presentation of mathematics has clear deficiencies e.g. errors are present; wrong symbols have been used, Greek letters are absent or incorrect, subscripts and/or superscripts are missing; equation layout is flawed.",Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Important equations/expressions have not been properly numbered in sequence.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Key steps are missing in the development of equations/expressions.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Excessive detail has been included in the development of equations/expressions.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Units or symbols are not consistent with appropriate conventions e.g. such as the SI system of units.,Alan Webb,jac.webb@ulster.ac.uk,1,positive
+TE,Abbreviations and/or acronyms do not follow normal conventions or have not been explicitly defined at the first mention.,Alan Webb,jac.webb@ulster.ac.uk,1,positive

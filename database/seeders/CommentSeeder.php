@@ -22,7 +22,7 @@ class CommentSeeder extends Seeder
         while (($data = fgetcsv($info, 4000, ",")) !== FALSE) {
             if (!$dataRow) {
                 Comments::create([
-                    'comment_id' => $data['0'],
+                    'type' => $data['0'],
                     'comment_name' => $data['1'],
                     'author' => $data['2'],
                     'email' => $data['3'],

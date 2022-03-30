@@ -7,11 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Comment Bank</h1>
-    <li>
-        <a href="{{ url('/comments') }}"">View Comments</a>
-        <a href="{{ url('/comment-bank') }}">Add/Edit/Delete Comments</a>
-        <a href="">Validate Comments</a>
-    </li>
+    
 </body>
 </html>

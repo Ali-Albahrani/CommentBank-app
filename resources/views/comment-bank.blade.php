@@ -34,6 +34,7 @@
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">#</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Comment</th>
                             <th scope="col">Comment Author</th>
                             <th scope="col">Email</th>
@@ -42,20 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($comments as $comment)
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>{{ $comment->comment_id }}</td>
-                            <td>{{ $comment->comment_name }}</td>
-                            <td>{{ $comment->author }}</td>
-                            <td>{{ $comment->effect }}</td>
-                            <td>{{ $comment->email }}</td>
-                            <td>
-                                <button type="button" data-id="' + item.comment_id + '" class="btn btn-primary edit btn-sm">Edit</button>\
-                                <button type="button" data-id="' + item.comment_id + '" class="btn btn-danger delete btn-sm"> Delete </button>\
-                            </td>
-                        </tr>
-                        @endforeach
+                      
                     </tbody>
                 </table>
 
@@ -83,6 +71,14 @@
                     <ul id="msgList"></ul>
                     <form action="javascript:void(0)" id="addEditCommentForm" name="addEditCommentForm" class="form-horizontal" method="POST">
                         <input type="hidden" name="id" id="id">
+                        
+                        <div class="form-group">
+                            <label for="name" class="col-sm-4 control-label">Type</label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="type" name="type" placeholder="Enter Comment Type" value="" maxlength="50" required="">
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <label for="name" class="col-sm-4 control-label">Comment</label>
                             <div class="col-sm-12">

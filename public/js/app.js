@@ -5072,8 +5072,6 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
@@ -5100,14 +5098,15 @@ $(document).ready(function ($) {
         $('tbody').html("");
         $.each(res.comments, function (key, item) {
           $('tbody').append('<tr>\
-                                <td><input type = "checkbox" name = "effect" id = "effect' + item.comment_id + '"value = "' + item.effect + '" /></td>\
-                                <td>' + item.comment_id + '</td>\
+                                <td><input type = "checkbox" name = "effect" id = "effect' + item.id + '"value = "' + item.effect + '" /></td>\
+                                <td>' + item.id + '</td>\
+                                <td>' + item.type + '</td>\
                                 <td>' + item.comment_name + '</td>\
                                 <td>' + item.author + '</td>\
                                 <td>' + item.email + '</td>\
                                 <td>' + item.effect + '</td>\
-                                <td><button type = "button" data-id ="' + item.comment_id + '"class = "btn btn-primary edit btn-sm">Edit</button>\
-                                <button type = "button" data-id = "' + item.comment_id + '"class = "btn btn-danger delete btn-sm"> Delete </button></td > \
+                                <td><button type = "button" data-id ="' + item.id + '"class = "btn btn-primary edit btn-sm">Edit</button>\
+                                <button type = "button" data-id = "' + item.id + '"class = "btn btn-danger delete btn-sm"> Delete </button></td > \
                                 </tr>');
         });
       },
@@ -5129,7 +5128,7 @@ $(document).ready(function ($) {
   $('body').on('click', '#btn-add', function (event) {
     event.preventDefault();
     var id = $(this).data('id');
-    var comment_id = $("#comment_id").val();
+    var type = $("#type").val();
     var comment_name = $("#comment_name").val();
     var author = $("#author").val();
     var effect = $("#effect").val();
@@ -5141,7 +5140,8 @@ $(document).ready(function ($) {
       type: "POST",
       url: "save-comment",
       data: {
-        comment_id: comment_id,
+        id: id,
+        type: type,
         comment_name: comment_name,
         author: author,
         email: email,
@@ -5195,13 +5195,13 @@ $(document).ready(function ($) {
           $('#msgList').addClass('alert alert-danger');
           $('#msgList').text(res.message);
         } else {
-          console.log(res.comment);
-          console.log(_typeof(res.comment));
-          $('#email').val(res.comment[0].email);
-          $('#comment_name').val(res.comment[0].comment_name);
-          $('#author').val(res.comment[0].author);
-          $('#effect').val(res.comment[0].effect);
-          $('#comment_id').val(res.comment[0].comment_id);
+          // console.log(res.comment);
+          // console.log(typeof (res.comment));
+          $('#email').val(res.comment.email);
+          $('#comment_name').val(res.comment.comment_name);
+          $('#author').val(res.comment.author);
+          $('#effect').val(res.comment.effect);
+          $('#type').val(res.comment.type);
         }
       }
     });
@@ -5234,8 +5234,8 @@ $(document).ready(function ($) {
   });
   $('body').on('click', '#btn-save', function (event) {
     event.preventDefault();
-    var comment_id = $("#comment_id").val();
     var id = $("#id").val();
+    var type = $("#type").val();
     var comment_name = $("#comment_name").val();
     var author = $("#author").val();
     var effect = $("#effect").val();
@@ -5248,7 +5248,7 @@ $(document).ready(function ($) {
       type: "PUT",
       url: "update-comment/" + id,
       data: {
-        comment_id: comment_id,
+        type: type,
         comment_name: comment_name,
         author: author,
         email: email,

@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->string('comment_id');
+            $table->id('id');
+            $table->string('type');
             $table->text('comment_name');
             $table->string('author');
             $table->string('email');
-            $table->boolean('validated');
-            $table->boolean('effect');
+            $table->boolean('validated')->default('1');
+            $table->string('effect');
             $table->timestamps();
         });
     }

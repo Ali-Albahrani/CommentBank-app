@@ -37,6 +37,7 @@ class commentBankCRUDController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'type' => 'required',
             'comment_name' => 'required',
             'email' => 'required',
             'author' => 'required',
@@ -50,6 +51,7 @@ class commentBankCRUDController extends Controller
             ]);
         } else {
             $comments = new Comments;
+            $comments->type = $request->input('type');
             $comments->comment_name = $request->input('comment_name');
             $comments->email = $request->input('email');
             $comments->author = $request->input('author');
@@ -71,8 +73,8 @@ class commentBankCRUDController extends Controller
      */
     public function edit($id)
     {
-        // $comment = Comments::find($id);
-        $comment = Comments::where('comment_id', '=', $id)->get();
+        $comment = Comments::find($id);
+        // $comment = Comments::where('comment_id', '=', $id)->get();
         if ($comment) {
             return response()->json([
                 'status' => 200,
@@ -96,6 +98,7 @@ class commentBankCRUDController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'type' => 'type',
             'comment_name' => 'required',
             'email' => 'required',
             'author' => 'required',
@@ -108,9 +111,10 @@ class commentBankCRUDController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-            // $comment = Comments::find($id);
-            $comment = Comments::where('comment_id', '=', $id)->get();
+            $comment = Comments::find($id);
+            // $comment = Comments::where('comment_id', '=', $id)->get();
             if ($comment) {
+                $comment->type = $request->input('type');
                 $comment->comment_name = $request->input('comment_name');
                 $comment->effect = $request->input('effect');
                 $comment->author = $request->input('author');
@@ -137,8 +141,8 @@ class commentBankCRUDController extends Controller
      */
     public function destroy($id)
     {
-        // $comment = Comments::find($id);
-        $comment = Comments::where('comment_id', '=', $id)->get();
+        $comment = Comments::find($id);
+        // $comment = Comments::where('comment_id', '=', $id)->get();
         if ($comment) {
             $comment->delete();
             return response()->json([
