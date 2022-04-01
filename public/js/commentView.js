@@ -5063,256 +5063,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-
-window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
-
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-$(document).ready(function ($) {
-  fetchComments(); // Get the table from the dB to start 
-
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-
-  function fetchComments() {
-    // ajax 
-    $.ajax({
-      type: "GET",
-      url: "fetch-comments",
-      dataType: 'json',
-      success: function success(res) {
-        // console.log(res); 
-        $('tbody').html("");
-        $.each(res.comments, function (key, item) {
-          $('tbody').append('<tr>\
-                                <td><input type = "checkbox" name = "effect" id = "effect' + item.id + '"value = "' + item.effect + '" /></td>\
-                                <td>' + item.id + '</td>\
-                                <td>' + item.type + '</td>\
-                                <td>' + item.comment_name + '</td>\
-                                <td>' + item.author + '</td>\
-                                <td>' + item.email + '</td>\
-                                <td>' + item.effect + '</td>\
-                                <td><button type = "button" data-id ="' + item.id + '"class = "btn btn-primary edit btn-sm">Edit</button>\
-                                <button type = "button" data-id = "' + item.id + '"class = "btn btn-danger delete btn-sm"> Delete </button></td > \
-                                </tr>');
-        });
-      },
-      complete: function complete() {
-        isChecked();
-      }
-    });
-  }
-
-  $('#addNewComment').click(function (event) {
-    // evt.preventDefault();
-    $('#addEditCommentForm').trigger("reset");
-    $('#ajaxCommentModel').html("Add Comment");
-    $('#btn-add').show();
-    $('#btn-save').hide();
-    $('#ajax-comment-model').modal('show');
-    $('#message').fadeOut(4000);
-  });
-  $('body').on('click', '#btn-add', function (event) {
-    event.preventDefault();
-    var id = $(this).data('id');
-    var type = $("#type").val();
-    var comment_name = $("#comment_name").val();
-    var author = $("#author").val();
-    var effect = $("#effect").val();
-    var email = $("#email").val();
-    $("#btn-add").html('Please Wait...');
-    $("#btn-add").attr("disabled", true); // ajax 
-
-    $.ajax({
-      type: "POST",
-      url: "save-comment",
-      data: {
-        id: id,
-        type: type,
-        comment_name: comment_name,
-        author: author,
-        email: email,
-        validated: 1,
-        effect: effect
-      },
-      dataType: 'json',
-      success: function success(res) {
-        console.log(res);
-
-        if (res.status == 400) {
-          $('#msgList').html("");
-          $('#msgList').addClass('alert alert-danger');
-          $.each(res.errors, function (key, err_value) {
-            $('#msgList').append('<li>' + err_value + '</li>');
-          });
-          $('#btn-save').text('Save changes');
-        } else {
-          $('#message').html("");
-          $('#message').addClass('alert alert-success');
-          $('#message').text(res.message);
-          fetchComments();
-        }
-      },
-      complete: function complete() {
-        $("#btn-add").html('Save');
-        $("#btn-add").attr("disabled", false);
-        $("#btn-add").hide();
-        $('#ajax-comment-model').modal('hide');
-        $('#message').fadeOut(4000);
-      }
-    });
-  });
-  $('body').on('click', '.edit', function (evt) {
-    evt.preventDefault();
-    var id = $(this).data('id'); // ajax 
-
-    $.ajax({
-      type: "GET",
-      url: "edit-comment/" + id,
-      dataType: 'json',
-      success: function success(res) {
-        console.dir(res);
-        $('#ajaxCommentModel').html("Edit Comment");
-        $('#btn-add').hide();
-        $('#btn-save').show();
-        $('#ajax-comment-model').modal('show');
-
-        if (res.status == 404) {
-          $('#msgList').html("");
-          $('#msgList').addClass('alert alert-danger');
-          $('#msgList').text(res.message);
-        } else {
-          // console.log(res.comment);
-          // console.log(typeof (res.comment));
-          $('#email').val(res.comment.email);
-          $('#comment_name').val(res.comment.comment_name);
-          $('#author').val(res.comment.author);
-          $('#effect').val(res.comment.effect);
-          $('#type').val(res.comment.type);
-        }
-      }
-    });
-  });
-  $('body').on('click', '.delete', function (evt) {
-    evt.preventDefault();
-
-    if (confirm("Delete Comment?") == true) {
-      var id = $(this).data('id'); // ajax 
-
-      $.ajax({
-        type: "DELETE",
-        url: "delete-comment/" + id,
-        dataType: 'json',
-        success: function success(res) {
-          // console.log(res); 
-          if (res.status == 404) {
-            $('#message').addClass('alert alert-danger');
-            $('#message').text(res.message);
-          } else {
-            $('#message').html("");
-            $('#message').addClass('alert alert-success');
-            $('#message').text(res.message);
-          }
-
-          fetchComments();
-        }
-      });
-    }
-  });
-  $('body').on('click', '#btn-save', function (event) {
-    event.preventDefault();
-    var id = $("#id").val();
-    var type = $("#type").val();
-    var comment_name = $("#comment_name").val();
-    var author = $("#author").val();
-    var effect = $("#effect").val();
-    var email = $("#email").val(); // alert("id="+id+" title = " + title); 
-
-    $("#btn-save").html('Please Wait...');
-    $("#btn-save").attr("disabled", true); // ajax 
-
-    $.ajax({
-      type: "PUT",
-      url: "update-comment/" + id,
-      data: {
-        type: type,
-        comment_name: comment_name,
-        author: author,
-        email: email,
-        validated: 1,
-        effect: effect
-      },
-      dataType: 'json',
-      success: function success(res) {
-        console.log(res);
-
-        if (res.status == 400) {
-          $('#msgList').html("");
-          $('#msgList').addClass('alert alert-danger');
-          $.each(res.errors, function (key, err_value) {
-            $('#msgList').append('<li>' + err_value + '</li>');
-          });
-          $('#btn-save').text('Save changes');
-        } else {
-          $('#message').html("");
-          $('#message').addClass('alert alert-success');
-          $('#message').text(res.message);
-          fetchComments();
-        }
-      },
-      complete: function complete() {
-        $("#btn-save").html('Save changes');
-        $("#btn-save").attr("disabled", false);
-        $('#ajax-comment-model').modal('hide');
-        $('#message').fadeOut(4000);
-      }
-    });
-  });
-  $("#btnGet").click(function () {
-    var message = ""; //Loop through all checked CheckBoxes in GridView. 
-
-    $("#Table1 input[type=checkbox]:checked").each(function () {
-      var row = $(this).closest("tr")[0]; // message += row.cells[2].innerHTML; 
-
-      message += " " + row.cells[3].innerHTML; // message += " " + row.cells[4].innerHTML; 
-      // message += "\n-----------------------\n";
-    }); //Display selected Row data in Alert Box. 
-
-    $("#messageList").html(message);
-    return false;
-  });
-  $("#copy").click(function () {
-    $("#messageList").select();
-    document.execCommand("copy");
-    alert("Copied On clipboard");
-  });
-
-  function isChecked() {
-    $("#Table1 input[type=checkbox]").each(function () {
-      if ($(this).val() == 1) {
-        $(this).prop("checked", true);
-      } else {
-        $(this).prop("checked", false);
-      }
-    });
-  }
-});
-
-/***/ }),
-
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
@@ -37820,19 +37570,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ "./resources/css/app.css":
-/*!*******************************!*\
-  !*** ./resources/css/app.css ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
 /***/ "./node_modules/popper.js/dist/esm/popper.js":
 /*!***************************************************!*\
   !*** ./node_modules/popper.js/dist/esm/popper.js ***!
@@ -40687,42 +40424,7 @@ process.umask = function() { return 0; };
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -40772,68 +40474,253 @@ process.umask = function() { return 0; };
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/js/app": 0,
-/******/ 			"css/app": 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!*************************************!*\
+  !*** ./resources/js/commentView.js ***!
+  \*************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+
+window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
+alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
+
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+$(document).ready(function ($) {
+  fetchComments(); // Get the table from the dB to start 
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  function fetchComments() {
+    // ajax 
+    $.ajax({
+      type: "GET",
+      url: "fetch-comments",
+      dataType: 'json',
+      success: function success(res) {
+        // console.log(res); 
+        $('tbody').html("");
+        $.each(res.comments, function (key, item) {
+          $('tbody').append('<tr>\
+                                <td><input type = "checkbox" name = "effect" id = "effect' + item.id + '"value = "' + item.effect + '" /></td>\
+                                <td>' + item.id + '</td>\
+                                <td>' + item.type + '</td>\
+                                <td>' + item.comment_name + '</td>\
+                                <td>' + item.author + '</td>\
+                                <td>' + item.email + '</td>\
+                                <td>' + item.effect + '</td>\
+                               </tr>');
+        });
+      },
+      complete: function complete() {
+        isChecked();
+      }
+    });
+  }
+
+  $('#addNewComment').click(function (event) {
+    // evt.preventDefault();
+    $('#addEditCommentForm').trigger("reset");
+    $('#ajaxCommentModel').html("Add Comment");
+    $('#btn-add').show();
+    $('#btn-save').hide();
+    $('#ajax-comment-model').modal('show');
+    $('#message').fadeOut(4000);
+  });
+  $('body').on('click', '#btn-add', function (event) {
+    event.preventDefault();
+    var id = $(this).data('id');
+    var type = $("#type").val();
+    var comment_name = $("#comment_name").val();
+    var author = $("#author").val();
+    var effect = $("#effect").val();
+    var email = $("#email").val();
+    $("#btn-add").html('Please Wait...');
+    $("#btn-add").attr("disabled", true); // ajax 
+
+    $.ajax({
+      type: "POST",
+      url: "save-comment",
+      data: {
+        id: id,
+        type: type,
+        comment_name: comment_name,
+        author: author,
+        email: email,
+        validated: 1,
+        effect: effect
+      },
+      dataType: 'json',
+      success: function success(res) {
+        console.log(res);
+
+        if (res.status == 400) {
+          $('#msgList').html("");
+          $('#msgList').addClass('alert alert-danger');
+          $.each(res.errors, function (key, err_value) {
+            $('#msgList').append('<li>' + err_value + '</li>');
+          });
+          $('#btn-save').text('Save changes');
+        } else {
+          $('#message').html("");
+          $('#message').addClass('alert alert-success');
+          $('#message').text(res.message);
+          fetchComments();
+        }
+      },
+      complete: function complete() {
+        $("#btn-add").html('Save');
+        $("#btn-add").attr("disabled", false);
+        $("#btn-add").hide();
+        $('#ajax-comment-model').modal('hide');
+        $('#message').fadeOut(4000);
+      }
+    });
+  });
+  $('body').on('click', '.edit', function (evt) {
+    evt.preventDefault();
+    var id = $(this).data('id'); // ajax 
+
+    $.ajax({
+      type: "GET",
+      url: "edit-comment/" + id,
+      dataType: 'json',
+      success: function success(res) {
+        console.dir(res);
+        $('#ajaxCommentModel').html("Edit Comment");
+        $('#btn-add').hide();
+        $('#btn-save').show();
+        $('#ajax-comment-model').modal('show');
+
+        if (res.status == 404) {
+          $('#msgList').html("");
+          $('#msgList').addClass('alert alert-danger');
+          $('#msgList').text(res.message);
+        } else {
+          // console.log(res.comment);
+          // console.log(typeof (res.comment));
+          $('#email').val(res.comment.email);
+          $('#comment_name').val(res.comment.comment_name);
+          $('#author').val(res.comment.author);
+          $('#effect').val(res.comment.effect);
+          $('#type').val(res.comment.type);
+        }
+      }
+    });
+  });
+  $('body').on('click', '.delete', function (evt) {
+    evt.preventDefault();
+
+    if (confirm("Delete Comment?") == true) {
+      var id = $(this).data('id'); // ajax 
+
+      $.ajax({
+        type: "DELETE",
+        url: "delete-comment/" + id,
+        dataType: 'json',
+        success: function success(res) {
+          // console.log(res); 
+          if (res.status == 404) {
+            $('#message').addClass('alert alert-danger');
+            $('#message').text(res.message);
+          } else {
+            $('#message').html("");
+            $('#message').addClass('alert alert-success');
+            $('#message').text(res.message);
+          }
+
+          fetchComments();
+        }
+      });
+    }
+  });
+  $('body').on('click', '#btn-save', function (event) {
+    event.preventDefault();
+    var id = $("#id").val();
+    var type = $("#type").val();
+    var comment_name = $("#comment_name").val();
+    var author = $("#author").val();
+    var effect = $("#effect").val();
+    var email = $("#email").val(); // alert("id="+id+" title = " + title); 
+
+    $("#btn-save").html('Please Wait...');
+    $("#btn-save").attr("disabled", true); // ajax 
+
+    $.ajax({
+      type: "PUT",
+      url: "update-comment/" + id,
+      data: {
+        type: type,
+        comment_name: comment_name,
+        author: author,
+        email: email,
+        validated: 1,
+        effect: effect
+      },
+      dataType: 'json',
+      success: function success(res) {
+        console.log(res);
+
+        if (res.status == 400) {
+          $('#msgList').html("");
+          $('#msgList').addClass('alert alert-danger');
+          $.each(res.errors, function (key, err_value) {
+            $('#msgList').append('<li>' + err_value + '</li>');
+          });
+          $('#btn-save').text('Save changes');
+        } else {
+          $('#message').html("");
+          $('#message').addClass('alert alert-success');
+          $('#message').text(res.message);
+          fetchComments();
+        }
+      },
+      complete: function complete() {
+        $("#btn-save").html('Save changes');
+        $("#btn-save").attr("disabled", false);
+        $('#ajax-comment-model').modal('hide');
+        $('#message').fadeOut(4000);
+      }
+    });
+  });
+  $("#btnGet").click(function () {
+    var message = ""; //Loop through all checked CheckBoxes in GridView. 
+
+    $("#Table2 input[type=checkbox]:checked").each(function () {
+      var row = $(this).closest("tr")[0]; // message += row.cells[2].innerHTML; 
+
+      message += " " + row.cells[3].innerHTML; // message += " " + row.cells[4].innerHTML; 
+      // message += "\n-----------------------\n";
+    }); //Display selected Row data in Alert Box. 
+
+    $("#messageList").html(message);
+    return false;
+  });
+  $("#copy").click(function () {
+    $("#messageList").select();
+    document.execCommand("copy");
+    alert("Copied On clipboard");
+  });
+
+  function isChecked() {
+    $("#Table1 input[type=checkbox]").each(function () {
+      if ($(this).val() == 1) {
+        $(this).prop("checked", true);
+      } else {
+        $(this).prop("checked", false);
+      }
+    });
+  }
+});
+})();
+
 /******/ })()
 ;

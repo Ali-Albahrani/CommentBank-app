@@ -34,9 +34,7 @@ $(document).ready(function ($) {
                                 <td>' + item.author + '</td>\
                                 <td>' + item.email + '</td>\
                                 <td>' + item.effect + '</td>\
-                                <td><button type = "button" data-id ="' + item.id + '"class = "btn btn-primary edit btn-sm">Edit</button>\
-                                <button type = "button" data-id = "' + item.id + '"class = "btn btn-danger delete btn-sm"> Delete </button></td > \
-                                </tr>');
+                               </tr>');
                 });
             },
             complete: function () {
@@ -210,7 +208,7 @@ $(document).ready(function ($) {
     $("#btnGet").click(function () {
         var message = "";
         //Loop through all checked CheckBoxes in GridView. 
-        $("#Table1 input[type=checkbox]:checked").each(function () {
+        $("#Table2 input[type=checkbox]:checked").each(function () {
             var row = $(this).closest("tr")[0];
             // message += row.cells[2].innerHTML; 
             message += " " + row.cells[3].innerHTML;

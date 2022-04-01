@@ -20,6 +20,12 @@ class commentBankCRUDController extends Controller
         return view('comment-bank', compact('comments'));
     }
 
+    public function readComments()
+    {
+        $comments = Comments::all();
+        return view('comments', compact('comments'));
+    }
+
     public function fetchComments()
     {
         $comments = Comments::all();

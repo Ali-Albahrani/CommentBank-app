@@ -10,17 +10,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{asset('js/app.js')}}"></script> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
 </head>
 
 <body>
     @extends('base')
     @section('main')
     <div class="container mt-2">
+
         <div class="row">
             <div class="col-md-12 card-header text-center font-weight-bold">
+            <a href="{{ url('/index') }}">
+                <img src="{{asset('img\logo.png')}}" alt="logo">
+            </a>
                 <h2>Comments Bank</h2>
-        
             </div>
 
             <div id="message"></div>
@@ -43,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                      
+            
                     </tbody>
                 </table>
 
@@ -121,6 +124,7 @@
     </div>
     <!-- end bootstrap model -->
     @endsection
+
 </body>
 
 </html>

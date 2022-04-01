@@ -10,12 +10,11 @@
 </head>
 
 <body>
-    @yield('main');
+    @yield('reader');
     <!-- end bootstrap model -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{mix('js/app.js')}}"></script>
-    @stack('scripts')
+    <script src="{{mix('js/commentView.js')}}"></script>
 </body>
 
 </html>

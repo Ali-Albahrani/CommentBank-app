@@ -15,7 +15,15 @@ use App\Http\Controllers\commentBankCRUDController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/index', function () {
+    return view('index');
+});
+
+Route::get('/comments', function () {
+    return view('comments');
 });
 
 Route::get('/dashboard', function () {
@@ -26,11 +34,12 @@ Route::get('/comment-bank', function () {
     return view('comment-bank');
 })->middleware(['auth', 'verified'])->name('comment-bank');
 
-Route::get('comment-bank', [commentBankCRUDController::class, 'index']);
-Route::post('save-comment', [commentBankCRUDController::class, 'store']);
+Route::get('comment-bank', [commentBankCRUDController::class, 'index'])->middleware(['auth', 'verified'])->name('comment-bank');;
+Route::get('comments', [commentBankCRUDController::class, 'readComments']);
+Route::post('save-comment', [commentBankCRUDController::class, 'store'])->middleware(['auth', 'verified'])->name('comment-bank');;
 Route::get('fetch-comments', [commentBankCRUDController::class, 'fetchComments']);
-Route::get('edit-comment/{id}', [commentBankCRUDController::class, 'edit']);
-Route::put('update-comment/{id}', [commentBankCRUDController::class, 'update']);
-Route::delete('delete-comment/{id}', [commentBankCRUDController::class, 'destroy']);
+Route::get('edit-comment/{id}', [commentBankCRUDController::class, 'edit'])->middleware(['auth', 'verified'])->name('comment-bank');;
+Route::put('update-comment/{id}', [commentBankCRUDController::class, 'update'])->middleware(['auth', 'verified'])->name('comment-bank');;
+Route::delete('delete-comment/{id}', [commentBankCRUDController::class, 'destroy'])->middleware(['auth', 'verified'])->name('comment-bank');;
 
 require __DIR__ . '/auth.php';
