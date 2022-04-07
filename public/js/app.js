@@ -5105,6 +5105,7 @@ $(document).ready(function ($) {
                                 <td>' + item.author + '</td>\
                                 <td>' + item.email + '</td>\
                                 <td>' + item.effect + '</td>\
+                                <td>' + item.validated + '</td>\
                                 <td><button type = "button" data-id ="' + item.id + '"class = "btn btn-primary edit btn-sm">Edit</button>\
                                 <button type = "button" data-id = "' + item.id + '"class = "btn btn-danger delete btn-sm"> Delete </button></td > \
                                 </tr>');
@@ -5122,8 +5123,7 @@ $(document).ready(function ($) {
     $('#ajaxCommentModel').html("Add Comment");
     $('#btn-add').show();
     $('#btn-save').hide();
-    $('#ajax-comment-model').modal('show');
-    $('#message').fadeOut(4000);
+    $('#ajax-comment-model').modal('show'); // $('#message').fadeOut(4000);
   });
   $('body').on('click', '#btn-add', function (event) {
     event.preventDefault();
@@ -5133,6 +5133,7 @@ $(document).ready(function ($) {
     var author = $("#author").val();
     var effect = $("#effect").val();
     var email = $("#email").val();
+    var validated = $("#validated").val();
     $("#btn-add").html('Please Wait...');
     $("#btn-add").attr("disabled", true); // ajax 
 
@@ -5145,7 +5146,7 @@ $(document).ready(function ($) {
         comment_name: comment_name,
         author: author,
         email: email,
-        validated: 1,
+        validated: validated,
         effect: effect
       },
       dataType: 'json',
@@ -5187,6 +5188,7 @@ $(document).ready(function ($) {
         console.dir(res);
         $('#ajaxCommentModel').html("Edit Comment");
         $('#btn-add').hide();
+        $('#id').val(id);
         $('#btn-save').show();
         $('#ajax-comment-model').modal('show');
 
@@ -5202,6 +5204,7 @@ $(document).ready(function ($) {
           $('#author').val(res.comment.author);
           $('#effect').val(res.comment.effect);
           $('#type').val(res.comment.type);
+          $('#validated').val(res.comment.validated);
         }
       }
     });
@@ -5239,7 +5242,8 @@ $(document).ready(function ($) {
     var comment_name = $("#comment_name").val();
     var author = $("#author").val();
     var effect = $("#effect").val();
-    var email = $("#email").val(); // alert("id="+id+" title = " + title); 
+    var email = $("#email").val();
+    var validated = $("#validated").val(); // alert("id="+id+" title = " + title); 
 
     $("#btn-save").html('Please Wait...');
     $("#btn-save").attr("disabled", true); // ajax 
@@ -5248,12 +5252,13 @@ $(document).ready(function ($) {
       type: "PUT",
       url: "update-comment/" + id,
       data: {
+        id: id,
         type: type,
         comment_name: comment_name,
         author: author,
         email: email,
-        validated: 1,
-        effect: effect
+        effect: effect,
+        validated: validated
       },
       dataType: 'json',
       success: function success(res) {

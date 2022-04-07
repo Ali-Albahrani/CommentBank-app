@@ -23,12 +23,13 @@
             <a href="{{ url('/index') }}">
                 <img src="{{asset('img\logo.png')}}" alt="logo">
             </a>
-                <h2>Comments Bank</h2>
+                <h2>Comments</h2>
             </div>
 
             <div id="message"></div>
 
-            <div class="col-md-12 mt-1 mb-2"><button type="button" id="addNewComment" class="btn btn-success">Add</button>
+            <div class="col-md-12 mt-1 mb-2">
+                <button type="button" id="addNewComment" class="btn btn-success">Add</button>
             </div>
 
             <div class="col-md-12">
@@ -42,6 +43,7 @@
                             <th scope="col">Comment Author</th>
                             <th scope="col">Email</th>
                             <th scope="col">Effect</th>
+                            <th scope="col">Validated</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -108,6 +110,13 @@
                             <label class="col-sm-4 control-label">Effect</label>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control" id="effect" name="effect" placeholder="Enter Comment Effect" value="" required="">
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">Validated</label>
+                            <div class="col-sm-12">
+                                <input type="boolean" class="form-control" id="validated" name="validated" placeholder=" 1 = validated | 0 = non-validated" value="" required="">
                             </div>
                         </div>
 

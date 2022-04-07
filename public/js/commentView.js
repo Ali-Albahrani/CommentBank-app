@@ -40509,188 +40509,188 @@ $(document).ready(function ($) {
         // console.log(res); 
         $('tbody').html("");
         $.each(res.comments, function (key, item) {
-          $('tbody').append('<tr>\
-                                <td><input type = "checkbox" name = "effect" id = "effect' + item.id + '"value = "' + item.effect + '" /></td>\
-                                <td>' + item.id + '</td>\
-                                <td>' + item.type + '</td>\
-                                <td>' + item.comment_name + '</td>\
-                                <td>' + item.author + '</td>\
-                                <td>' + item.email + '</td>\
-                                <td>' + item.effect + '</td>\
-                               </tr>');
+          if (item.validated != 0) {
+            $('tbody').append('<tr>\
+                    <td><input type = "checkbox" name = "effect" id = "effect' + item.id + '"value = "' + item.effect + '" /></td>\
+                    <td>' + item.id + '</td>\
+                    <td>' + item.type + '</td>\
+                    <td>' + item.comment_name + '</td>\
+                    <td>' + item.author + '</td>\
+                    <td>' + item.email + '</td>\
+                    <td>' + item.effect + '</td>\
+                   </tr>');
+          }
         });
       },
       complete: function complete() {
         isChecked();
       }
     });
-  }
+  } // $('#addNewComment').click(function (event) {
+  //     // evt.preventDefault();
+  //     $('#addEditCommentForm').trigger("reset");
+  //     $('#ajaxCommentModel').html("Add Comment");
+  //     $('#btn-add').show();
+  //     $('#btn-save').hide();
+  //     $('#ajax-comment-model').modal('show');
+  //     $('#message').fadeOut(4000);
+  // });
+  // $('body').on('click', '#btn-add', function (event) {
+  //     event.preventDefault();
+  //     var id = $(this).data('id');
+  //     var type = $("#type").val();
+  //     var comment_name = $("#comment_name").val();
+  //     var author = $("#author").val();
+  //     var effect = $("#effect").val();
+  //     var email = $("#email").val();
+  //     var validated = $("#validated").val();
+  //     $("#btn-add").html('Please Wait...');
+  //     $("#btn-add").attr("disabled", true);
+  //     // ajax 
+  //     $.ajax({
+  //         type: "POST",
+  //         url: "save-comment",
+  //         data: {
+  //             id: id,
+  //             type: type,
+  //             comment_name: comment_name,
+  //             author: author,
+  //             email: email,
+  //             validated: validated,
+  //             effect: effect
+  //         },
+  //         dataType: 'json',
+  //         success: function (res) {
+  //             console.log(res);
+  //             if (res.status == 400) {
+  //                 $('#msgList').html("");
+  //                 $('#msgList').addClass('alert alert-danger');
+  //                 $.each(res.errors, function (key, err_value) {
+  //                     $('#msgList').append('<li>' + err_value + '</li>');
+  //                 });
+  //                 $('#btn-save').text('Save changes');
+  //             } else {
+  //                 $('#message').html("");
+  //                 $('#message').addClass('alert alert-success');
+  //                 $('#message').text(res.message);
+  //                 fetchComments();
+  //             }
+  //         },
+  //         complete: function () {
+  //             $("#btn-add").html('Save');
+  //             $("#btn-add").attr("disabled", false);
+  //             $("#btn-add").hide();
+  //             $('#ajax-comment-model').modal('hide');
+  //             $('#message').fadeOut(4000);
+  //         }
+  //     });
+  // });
+  // $('body').on('click', '.edit', function (evt) {
+  //     evt.preventDefault();
+  //     var id = $(this).data('id');
+  //     // ajax 
+  //     $.ajax({
+  //         type: "GET",
+  //         url: "edit-comment/" + id,
+  //         dataType: 'json',
+  //         success: function (res) {
+  //             console.dir(res);
+  //             $('#ajaxCommentModel').html("Edit Comment");
+  //             $('#btn-add').hide();
+  //             $('#btn-save').show();
+  //             $('#ajax-comment-model').modal('show');
+  //             if (res.status == 404) {
+  //                 $('#msgList').html("");
+  //                 $('#msgList').addClass('alert alert-danger');
+  //                 $('#msgList').text(res.message);
+  //             } else {
+  //                 // console.log(res.comment);
+  //                 // console.log(typeof (res.comment));
+  //                 $('#email').val(res.comment.email);
+  //                 $('#comment_name').val(res.comment.comment_name);
+  //                 $('#author').val(res.comment.author);
+  //                 $('#effect').val(res.comment.effect);
+  //                 $('#type').val(res.comment.type);
+  //                 $('#validated').val(res.comment.validated);
+  //             }
+  //         }
+  //     });
+  // });
+  // $('body').on('click', '.delete', function (evt) {
+  //     evt.preventDefault();
+  //     if (confirm("Delete Comment?") == true) {
+  //         var id = $(this).data('id');
+  //         // ajax 
+  //         $.ajax({
+  //             type: "DELETE",
+  //             url: "delete-comment/" + id,
+  //             dataType: 'json',
+  //             success: function (res) {
+  //                 // console.log(res); 
+  //                 if (res.status == 404) {
+  //                     $('#message').addClass('alert alert-danger');
+  //                     $('#message').text(res.message);
+  //                 } else {
+  //                     $('#message').html("");
+  //                     $('#message').addClass('alert alert-success');
+  //                     $('#message').text(res.message);
+  //                 }
+  //                 fetchComments();
+  //             }
+  //         });
+  //     }
+  // });
+  // $('body').on('click', '#btn-save', function (event) {
+  //     event.preventDefault();
+  //     var id = $("#id").val();
+  //     var type = $("#type").val();
+  //     var comment_name = $("#comment_name").val();
+  //     var author = $("#author").val();
+  //     var effect = $("#effect").val();
+  //     var email = $("#email").val(); 
+  //     var validated = $("#validated").val(); 
+  //     // alert("id="+id+" title = " + title); 
+  //     $("#btn-save").html('Please Wait...');
+  //     $("#btn-save").attr("disabled", true);
+  //     // ajax 
+  //     $.ajax({
+  //         type: "PUT",
+  //         url: "update-comment/" + id,
+  //         data: {
+  //             type: type,
+  //             comment_name: comment_name,
+  //             author: author,
+  //             email: email,
+  //             validated: validated,
+  //             effect: effect
+  //         },
+  //         dataType: 'json',
+  //         success: function (res) {
+  //             console.log(res);
+  //             if (res.status == 400) {
+  //                 $('#msgList').html("");
+  //                 $('#msgList').addClass('alert alert-danger');
+  //                 $.each(res.errors, function (key, err_value) {
+  //                     $('#msgList').append('<li>' + err_value + '</li>');
+  //                 });
+  //                 $('#btn-save').text('Save changes');
+  //             } else {
+  //                 $('#message').html("");
+  //                 $('#message').addClass('alert alert-success');
+  //                 $('#message').text(res.message);
+  //                 fetchComments();
+  //             }
+  //         },
+  //         complete: function () {
+  //             $("#btn-save").html('Save changes');
+  //             $("#btn-save").attr("disabled", false);
+  //             $('#ajax-comment-model').modal('hide');
+  //             $('#message').fadeOut(4000);
+  //         }
+  //     });
+  // });
 
-  $('#addNewComment').click(function (event) {
-    // evt.preventDefault();
-    $('#addEditCommentForm').trigger("reset");
-    $('#ajaxCommentModel').html("Add Comment");
-    $('#btn-add').show();
-    $('#btn-save').hide();
-    $('#ajax-comment-model').modal('show');
-    $('#message').fadeOut(4000);
-  });
-  $('body').on('click', '#btn-add', function (event) {
-    event.preventDefault();
-    var id = $(this).data('id');
-    var type = $("#type").val();
-    var comment_name = $("#comment_name").val();
-    var author = $("#author").val();
-    var effect = $("#effect").val();
-    var email = $("#email").val();
-    $("#btn-add").html('Please Wait...');
-    $("#btn-add").attr("disabled", true); // ajax 
 
-    $.ajax({
-      type: "POST",
-      url: "save-comment",
-      data: {
-        id: id,
-        type: type,
-        comment_name: comment_name,
-        author: author,
-        email: email,
-        validated: 1,
-        effect: effect
-      },
-      dataType: 'json',
-      success: function success(res) {
-        console.log(res);
-
-        if (res.status == 400) {
-          $('#msgList').html("");
-          $('#msgList').addClass('alert alert-danger');
-          $.each(res.errors, function (key, err_value) {
-            $('#msgList').append('<li>' + err_value + '</li>');
-          });
-          $('#btn-save').text('Save changes');
-        } else {
-          $('#message').html("");
-          $('#message').addClass('alert alert-success');
-          $('#message').text(res.message);
-          fetchComments();
-        }
-      },
-      complete: function complete() {
-        $("#btn-add").html('Save');
-        $("#btn-add").attr("disabled", false);
-        $("#btn-add").hide();
-        $('#ajax-comment-model').modal('hide');
-        $('#message').fadeOut(4000);
-      }
-    });
-  });
-  $('body').on('click', '.edit', function (evt) {
-    evt.preventDefault();
-    var id = $(this).data('id'); // ajax 
-
-    $.ajax({
-      type: "GET",
-      url: "edit-comment/" + id,
-      dataType: 'json',
-      success: function success(res) {
-        console.dir(res);
-        $('#ajaxCommentModel').html("Edit Comment");
-        $('#btn-add').hide();
-        $('#btn-save').show();
-        $('#ajax-comment-model').modal('show');
-
-        if (res.status == 404) {
-          $('#msgList').html("");
-          $('#msgList').addClass('alert alert-danger');
-          $('#msgList').text(res.message);
-        } else {
-          // console.log(res.comment);
-          // console.log(typeof (res.comment));
-          $('#email').val(res.comment.email);
-          $('#comment_name').val(res.comment.comment_name);
-          $('#author').val(res.comment.author);
-          $('#effect').val(res.comment.effect);
-          $('#type').val(res.comment.type);
-        }
-      }
-    });
-  });
-  $('body').on('click', '.delete', function (evt) {
-    evt.preventDefault();
-
-    if (confirm("Delete Comment?") == true) {
-      var id = $(this).data('id'); // ajax 
-
-      $.ajax({
-        type: "DELETE",
-        url: "delete-comment/" + id,
-        dataType: 'json',
-        success: function success(res) {
-          // console.log(res); 
-          if (res.status == 404) {
-            $('#message').addClass('alert alert-danger');
-            $('#message').text(res.message);
-          } else {
-            $('#message').html("");
-            $('#message').addClass('alert alert-success');
-            $('#message').text(res.message);
-          }
-
-          fetchComments();
-        }
-      });
-    }
-  });
-  $('body').on('click', '#btn-save', function (event) {
-    event.preventDefault();
-    var id = $("#id").val();
-    var type = $("#type").val();
-    var comment_name = $("#comment_name").val();
-    var author = $("#author").val();
-    var effect = $("#effect").val();
-    var email = $("#email").val(); // alert("id="+id+" title = " + title); 
-
-    $("#btn-save").html('Please Wait...');
-    $("#btn-save").attr("disabled", true); // ajax 
-
-    $.ajax({
-      type: "PUT",
-      url: "update-comment/" + id,
-      data: {
-        type: type,
-        comment_name: comment_name,
-        author: author,
-        email: email,
-        validated: 1,
-        effect: effect
-      },
-      dataType: 'json',
-      success: function success(res) {
-        console.log(res);
-
-        if (res.status == 400) {
-          $('#msgList').html("");
-          $('#msgList').addClass('alert alert-danger');
-          $.each(res.errors, function (key, err_value) {
-            $('#msgList').append('<li>' + err_value + '</li>');
-          });
-          $('#btn-save').text('Save changes');
-        } else {
-          $('#message').html("");
-          $('#message').addClass('alert alert-success');
-          $('#message').text(res.message);
-          fetchComments();
-        }
-      },
-      complete: function complete() {
-        $("#btn-save").html('Save changes');
-        $("#btn-save").attr("disabled", false);
-        $('#ajax-comment-model').modal('hide');
-        $('#message').fadeOut(4000);
-      }
-    });
-  });
   $("#btnGet").click(function () {
     var message = ""; //Loop through all checked CheckBoxes in GridView. 
 

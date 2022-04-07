@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('comment_name');
             $table->string('author');
             $table->string('email');
-            $table->boolean('validated')->default('1');
+            $table->boolean('validated')->default('0');
             $table->string('effect');
             $table->timestamps();
         });

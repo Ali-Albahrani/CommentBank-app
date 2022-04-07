@@ -16,7 +16,8 @@
                 </a>
             </div>
         <div class="title">
-            <h1>Comment Bank</h1>
+            <h1>Welcome To The</h1>
+            <h2>Comment Bank</h2>
         </div>
         <div class="ws2">
             <a href="{{ url('/login') }}">Login</a>
@@ -28,7 +29,7 @@
 
         <div class="links">
             <li>
-                <ul><a href="{{ url('/comments') }}"">View Comments</a></ul>
+                <ul><a href="{{ url('/comments') }}">View Comments</a></ul>
                 <ul><a href="{{ url('/comment-bank') }}">Add/Edit/Delete/Validate Comments (Admin view)</a></ul>
             </li>
         </div>

@@ -5,7 +5,7 @@
 
 body
 {
-    background: #157145;
+    background: #0e693d;
     font-family: 'Ropa Sans', sans-serif;
 }
  
@@ -33,10 +33,18 @@ h2{
     align-content: center;
     grid-area: title;
 }
-.title h1 {
+.title h1{
     font-size: 3em;
+    margin-bottom: 0;
+    padding-bottom: 0;
     text-align: center;
+}
 
+.title h2{
+    font-size: 1.75em;
+    margin-top: 0;
+    padding-top: 0;
+    text-align: center;
 }
 
 .logo {
@@ -66,6 +74,7 @@ h2{
 }
 
 .links {
+    margin-top: 10%;
     justify-content: center;
     grid-area: links;
     border-color: #6A8EAE;
@@ -93,4 +102,50 @@ img {
     border-radius: 10%;
     background-color: #6A8EAE;
     padding: 0.2em;
+}
+
+#Table1 tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#Table1 tr:nth-child(odd){
+    background-color: #c8c8c8;
+}
+
+#Table1 th {
+    background-color: #42a776;
+}
+
+#Table2 tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+#Table2 tr:nth-child(odd){
+    background-color: #c8c8c8;
+}
+
+#Table2 th {
+    background-color: #42a776;
+}
+
+table, th, td {
+    border: 0.1em solid;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
 }

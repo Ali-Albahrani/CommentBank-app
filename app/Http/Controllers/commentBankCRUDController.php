@@ -17,13 +17,13 @@ class commentBankCRUDController extends Controller
     public function index()
     {
         $comments = Comments::all();
-        return view('comment-bank', compact('comments'));
+        return view('comment-bank');
     }
 
     public function readComments()
     {
         $comments = Comments::all();
-        return view('comments', compact('comments'));
+        return view('comments');
     }
 
     public function fetchComments()
@@ -48,6 +48,7 @@ class commentBankCRUDController extends Controller
             'email' => 'required',
             'author' => 'required',
             'effect' => 'required',
+            'validated' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -62,6 +63,7 @@ class commentBankCRUDController extends Controller
             $comments->email = $request->input('email');
             $comments->author = $request->input('author');
             $comments->effect = $request->input('effect');
+            $comments->validated = $request->input('validated');
 
             $comments->save();
             return response()->json([
@@ -104,11 +106,12 @@ class commentBankCRUDController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'type' => 'type',
+            'type' => 'required',
             'comment_name' => 'required',
             'email' => 'required',
             'author' => 'required',
             'effect' => 'required',
+            'validated' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -125,6 +128,7 @@ class commentBankCRUDController extends Controller
                 $comment->effect = $request->input('effect');
                 $comment->author = $request->input('author');
                 $comment->email = $request->input('email');
+                $comment->validated = $request->input('validated');
                 $comment->update();
                 return response()->json([
                     'status' => 200,
